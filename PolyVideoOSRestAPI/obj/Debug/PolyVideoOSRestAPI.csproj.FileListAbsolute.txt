@@ -1,0 +1,22 @@
+C:\Users\andy\OneDrive - Mission Electronics\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\andy\OneDrive - Mission Electronics\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\PolyVideoOSRestAPI.dll
+C:\Users\andy\OneDrive - Mission Electronics\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\PolyVideoOSRestAPI.pdb
+C:\Users\andy\OneDrive - Mission Electronics\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\CommonCoreLibrary.dll
+C:\Users\andy\OneDrive - Mission Electronics\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\Newtonsoft.Json.Compact.dll
+C:\Users\andy\OneDrive - Mission Electronics\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplSharpCustomAttributesInterface.dll
+C:\Users\andy\OneDrive - Mission Electronics\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplSharpHelperInterface.dll
+C:\Users\andy\OneDrive - Mission Electronics\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\PolyVideoOSRestAPI.dll
+C:\Users\andy\OneDrive - Mission Electronics\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\PolyVideoOSRestAPI.pdb
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\PolyVideoOSRestAPI.dll
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\PolyVideoOSRestAPI.pdb
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\CCL_Common.dll
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\Newtonsoft.Json.Compact.dll
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplSharpCustomAttributesInterface.dll
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplSharpHelperInterface.dll
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplSharpSQLHelperInterface.dll
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplSharpNewtonsoft.dll
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplSharpReflectionInterface.dll
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplSharpCryptographyInterface.dll
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\ResolveAssemblyReference.cache
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\PolyVideoOSRestAPI.dll
+C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\PolyVideoOSRestAPI.pdb
