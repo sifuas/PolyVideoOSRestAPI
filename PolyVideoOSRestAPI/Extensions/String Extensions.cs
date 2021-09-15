@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Crestron.SimplSharp;
 
-namespace MEI.Integration.PolyVideoOSRestAPI
+namespace PolyVideoOSRestAPI
 {
     public static class Extensions
     {

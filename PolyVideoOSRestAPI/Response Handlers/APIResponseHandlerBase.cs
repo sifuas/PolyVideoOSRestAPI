@@ -9,12 +9,11 @@ using Crestron.SimplSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using MEI.Integration.PolyVideoOSRestAPI.Network;
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Network;
+using PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI;
 
-using MEI.Integration.PolyVideoOSRestAPI;
-
-namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
+namespace PolyVideoOSRestAPI.ResponseHandlers
 {
     /// <summary>
     /// Handle responses from the API
@@ -45,17 +44,17 @@ namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
         /// Handle the response for the particular API Path
         /// </summary>
         /// <param name="result"></param>
-        public virtual void HandleAPIResponse(CCLWebResponse result)
+        public virtual void HandleAPIResponse(WebResponse result)
         {
             if( result != null )
-                CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}.nVideoOSAPIResponseHandler() : Path = {1}, Result = {2}", this.GetType().Name, Path, result);
+                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.nVideoOSAPIResponseHandler() : Path = {1}, Result = {2}", this.GetType().Name, Path, result);
         }
 
         /// <summary>
         /// Call the handler for an unknown response for the given handler
         /// </summary>
         /// <param name="response"></param>
-        public void HandleUnknownAPIResponse(CCLWebResponse response)
+        public void HandleUnknownAPIResponse(WebResponse response)
         {
             if (OnUnknownResponseReceived != null)
                 OnUnknownResponseReceived(this, new APIUnknownResponseEventArgs(response));
@@ -65,7 +64,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
         /// Call the handler for any server errors for the given handler
         /// </summary>
         /// <param name="response"></param>
-        public void HandleErrorAPIResponse(CCLWebResponse response)
+        public void HandleErrorAPIResponse(WebResponse response)
         {
             if (OnErrorResponseReceived != null)
                 OnErrorResponseReceived(this, new APIErrorResponseEventArgs(response));

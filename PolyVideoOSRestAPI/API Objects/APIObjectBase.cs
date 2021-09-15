@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Crestron.SimplSharp;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.API_Objects
+namespace PolyVideoOSRestAPI.API_Objects
 {
     /// <summary>
     /// Class representing an object that can be return from the API

@@ -6,17 +6,16 @@ using System.Text;
 using Crestron.SimplSharp;
 using RequestType = Crestron.SimplSharp.Net.Https.RequestType;
 
-using MEI.Integration.PolyVideoOSRestAPI.Network;
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
-using HttpStatusCode = MEI.Integration.PolyVideoOSRestAPI.Network.CCLHttpStatusCode;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using MEI.Integration.PolyVideoOSRestAPI;
-using MEI.Integration.PolyVideoOSRestAPI.API_Objects;
+using PolyVideoOSRestAPI.Network;
+using PolyVideoOSRestAPI.Logging;
+using HttpStatusCode = PolyVideoOSRestAPI.Network.HttpStatusCode;
+using PolyVideoOSRestAPI;
+using PolyVideoOSRestAPI.API_Objects;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
+namespace PolyVideoOSRestAPI.ResponseHandlers
 {
     /// <summary>
     /// Handle responses for POST requests to /session
@@ -30,11 +29,11 @@ namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
         {
         }
 
-        public override void HandleAPIResponse(CCLWebResponse response)
+        public override void HandleAPIResponse(WebResponse response)
         {
             if (response == null)
             {                
-                CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : NULL web response", this.GetType().Name);
+                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : NULL web response", this.GetType().Name);
                 return;
             }
            
@@ -57,7 +56,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
                 {
                     if (String.IsNullOrEmpty(sessionState.Session.SessionID))
                     {
-                        CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : No Session ID Returned in response {1}", this.GetType().Name, content);
+                        Debug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : No Session ID Returned in response {1}", this.GetType().Name, content);
                         return;
                     }
                     else
@@ -76,7 +75,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
 
                     if (sessionState.Reason == null)
                     {
-                        CCLDebug.PrintToConsole(eDebugLevel.Warning, "{0}.HandleAPIResponse() :  HTTP Response 400. No 'reason' field returned in VideoOS API JSON response", this.GetType().Name);
+                        Debug.PrintToConsole(eDebugLevel.Warning, "{0}.HandleAPIResponse() :  HTTP Response 400. No 'reason' field returned in VideoOS API JSON response", this.GetType().Name);
                         return;
                     }
 
@@ -88,31 +87,31 @@ namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
                     // invalid credentials
                     else if (sessionState.Reason.Equals("SessionRequestInvalid"))
                     {
-                        CCLDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Invalid Login Credentials", this.GetType().Name);
+                        Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Invalid Login Credentials", this.GetType().Name);
                         state = eSessionState.INVALID_CREDENTIALS;
                     }
                     // malformed request
                     else if (sessionState.Reason.Equals("SessionRequestInvalid"))
                     {
-                        CCLDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Invalid Login Credentials", this.GetType().Name);
+                        Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Invalid Login Credentials", this.GetType().Name);
                         state = eSessionState.INVALID_CREDENTIALS;
                     }
                     // locked out from too many failed login attempts
                     else if (sessionState.Reason.Equals("SessionPortLockout"))
                     {
-                        CCLDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Too many attempts, session locked out", this.GetType().Name);
+                        Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Too many attempts, session locked out", this.GetType().Name);
                         state = eSessionState.LOCKED_OUT;
                     }
                     // no valid session to connect to, logout to trigger re-login if needed
                     else if (sessionState.Reason.Equals("SessionNoActiveSession"))
                     {
-                        CCLDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Already Logged Out", this.GetType().Name);
+                        Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Already Logged Out", this.GetType().Name);
                         state = eSessionState.LOGGED_OUT;
                     }
                     // unknown
                     else
                     {
-                        CCLDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Unhandled Reason {1}", this.GetType().Name, sessionState.Reason);
+                        Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Unhandled Reason {1}", this.GetType().Name, sessionState.Reason);
                         state = eSessionState.LOGIN_ERROR;
                     }
 
@@ -129,8 +128,8 @@ namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
             }
             catch (Exception e)
             {                
-                CCLDebug.PrintExceptionToConsoelAndLog(eDebugLevel.Error,e, "{0}.HandleAPIResponse( ) - Error Processing Response");               
-                CCLDebug.PrintToConsoleAndLog(eDebugLevel.Error, response.ToString());
+                Debug.PrintExceptionToConsoelAndLog(eDebugLevel.Error,e, "{0}.HandleAPIResponse( ) - Error Processing Response");               
+                Debug.PrintToConsoleAndLog(eDebugLevel.Error, response.ToString());
             }
         }
 

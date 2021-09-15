@@ -1,0 +1,6 @@
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Release\PolyVideoOSRestAPI.dll
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Release\Newtonsoft.Json.Compact.dll
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Release\SimplSharpCustomAttributesInterface.dll
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Release\SimplSharpHelperInterface.dll
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Release\ResolveAssemblyReference.cache
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Release\PolyVideoOSRestAPI.dll

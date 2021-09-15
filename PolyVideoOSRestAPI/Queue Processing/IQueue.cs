@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using Crestron.SimplSharp;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Queue
+namespace PolyVideoOSRestAPI.Queue
 {
     /// <summary>
     /// Interface to define basic Queueing operations
     /// </summary>
-    public interface IQueue<T> : IKeyedObject, IDisposable
+    public interface IQueue<T> : IDisposable
     {
         // add the item to the queue
         void Enqueue(T queueItem);

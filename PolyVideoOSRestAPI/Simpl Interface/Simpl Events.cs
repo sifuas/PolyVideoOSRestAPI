@@ -5,9 +5,9 @@ using System.Text;
 
 using Crestron.SimplSharp;
 
-using MEI.Integration.PolyVideoOSRestAPI;
+using PolyVideoOSRestAPI;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Simpl_Interface
+namespace PolyVideoOSRestAPI.Simpl_Interface
 {
     /// <summary>
     /// Encapsulate the state of the current session

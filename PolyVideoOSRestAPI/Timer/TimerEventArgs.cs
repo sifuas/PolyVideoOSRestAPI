@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Crestron.SimplSharp;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Timer
+namespace PolyVideoOSRestAPI.Timer
 {
     /// <summary>
     /// Encapsulate timer state

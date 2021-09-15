@@ -5,9 +5,9 @@ using System.Text;
 
 using Crestron.SimplSharp;
 
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Logging;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Timer
+namespace PolyVideoOSRestAPI.Timer
 {
 
     /// <summary>
@@ -72,7 +72,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Timer
         /// </summary>
         public void Start()
         {
-            CCLDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Start(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Start(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
             if (Disposed)
                 return;
@@ -88,7 +88,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Timer
         /// </summary>
         public void StartExtended()
         {
-            CCLDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] StartExtended(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] StartExtended(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
 
             if (Disposed)
@@ -107,7 +107,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Timer
         /// <param name="timerRepeatPeriodInMs"></param>
         public void Reset(long timerPeriodInMs, long timerRepeatPeriodInMs)
         {
-            CCLDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Reset(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Reset(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
             if (Disposed)
                 return;
@@ -125,7 +125,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Timer
         /// <param name="timerExtendedRepeatPeriodInMs"></param>
         public void ResetExtended(long timerExtendedPeriodInMs, long timerExtendedRepeatPeriodInMs)
         {
-            CCLDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] ResetExtended(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] ResetExtended(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
             if (Disposed)
                 return;
@@ -141,7 +141,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Timer
         /// </summary>
         public void Stop()
         {
-            CCLDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Stop(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Stop(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
             if (Disposed)
                 return;
@@ -156,7 +156,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Timer
         /// </summary>
         public void Dispose()
         {
-            CCLDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Dispose(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Dispose(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
             Disposed = true;
 

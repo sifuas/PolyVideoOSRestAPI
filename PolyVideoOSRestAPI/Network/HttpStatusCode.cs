@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Network
+namespace PolyVideoOSRestAPI.Network
 {
 
     //
@@ -16,7 +16,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
     ///       codes defined for the HTTP protocol.</para>
     /// </devdoc>
     //UEUE : Any int can be cast to a HttpStatusCode to allow checking for non http1.1 codes.
-    public enum CCLHttpStatusCode
+    public enum HttpStatusCode
     {
 
         //

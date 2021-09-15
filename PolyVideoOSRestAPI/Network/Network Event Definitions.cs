@@ -5,7 +5,7 @@ using System.Text;
 
 using Crestron.SimplSharp;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Network
+namespace PolyVideoOSRestAPI.Network
 {
     /// <summary>
     /// Encapsulate messages receive from the network along with information about where they were received from.

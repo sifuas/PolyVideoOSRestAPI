@@ -13,11 +13,10 @@ using RequestType = Crestron.SimplSharp.Net.Https.RequestType;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI;
 
-using MEI.Integration.PolyVideoOSRestAPI;
-
-namespace MEI.Integration.PolyVideoOSRestAPI.InputCommands
+namespace PolyVideoOSRestAPI.InputCommands
 {
     /// <summary>
     /// Define the interface needed to transform the command object into text representing the selected type.
@@ -29,7 +28,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.InputCommands
     }
 
     // store information about specific commands needed to communicate with the API
-    internal class APICommand : IComparable, IDisposable, ICCLDebuggable
+    internal class APICommand : IComparable, IDisposable, IDebuggable
     {
         /// <summary>
         /// Define the command priorities that can be used if the command is stored in priority order.
@@ -239,7 +238,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.InputCommands
 
         #endregion
 
-        #region ICCLDebuggable Members
+        #region IDebuggable Members
 
         public void PrintDebugState()
         {

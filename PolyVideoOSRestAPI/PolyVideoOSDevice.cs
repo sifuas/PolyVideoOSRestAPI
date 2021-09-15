@@ -7,24 +7,24 @@ using System.Collections.Generic;
 using Crestron.SimplSharp;
 using Crestron.SimplSharp.Net.Https;
 
-using MEI.Integration.PolyVideoOSRestAPI.Simpl_Interface;
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
-using MEI.Integration.PolyVideoOSRestAPI.Network;
-using MEI.Integration.PolyVideoOSRestAPI.Network.REST;
-using MEI.Integration.PolyVideoOSRestAPI.Timer;
-using HttpStatusCode = MEI.Integration.PolyVideoOSRestAPI.Network.CCLHttpStatusCode;
+using PolyVideoOSRestAPI.Simpl_Interface;
+using PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Network;
+using PolyVideoOSRestAPI.Network.REST;
+using PolyVideoOSRestAPI.Timer;
+using HttpStatusCode = PolyVideoOSRestAPI.Network.HttpStatusCode;
 
-using MEI.Integration.PolyVideoOSRestAPI.Events;
-using MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers;
-using MEI.Integration.PolyVideoOSRestAPI.InputCommands;
-using MEI.Integration.PolyVideoOSRestAPI.Queue;
+using PolyVideoOSRestAPI.Events;
+using PolyVideoOSRestAPI.ResponseHandlers;
+using PolyVideoOSRestAPI.InputCommands;
+using PolyVideoOSRestAPI.Queue;
 
-namespace MEI.Integration.PolyVideoOSRestAPI
+namespace PolyVideoOSRestAPI
 {
     /// <summary>
     /// Class to connect to the VideoOS device and process responses
     /// </summary>
-    public sealed class PolyVideoOSDevice : IDisposable, ICCLDebuggable
+    public sealed class PolyVideoOSDevice : IDisposable, IDebuggable
     {
 
         // Simpl + delegates
@@ -113,13 +113,13 @@ namespace MEI.Integration.PolyVideoOSRestAPI
                 if (debugState)
                 {
                     CrestronConsole.PrintLine("{0} - Debug Enabled", this.GetType().Name);
-                    CCLDebug.SetDebugLevel(eDebugLevel.Trace);
+                    Debug.SetDebugLevel(eDebugLevel.Trace);
                     PrintDebugState();
                 }
                 else
                 {
                     CrestronConsole.PrintLine("{0} - Debug Disabled", this.GetType().Name);
-                    CCLDebug.SetDebugLevel(eDebugLevel.Error);
+                    Debug.SetDebugLevel(eDebugLevel.Error);
                 }
             }
         }
@@ -197,7 +197,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         /// <returns></returns>
         public ushort Connect()
         {
-            CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() : Started", this.GetType().Name);
+            Debug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() : Started", this.GetType().Name);
 
             if (String.IsNullOrEmpty(HostNameOrIPAddress))
                 throw new InvalidOperationException("No Host or IP Address Set");
@@ -217,16 +217,16 @@ namespace MEI.Integration.PolyVideoOSRestAPI
                 SetSessionState(eSessionState.LOGGING_IN, apiSession.Connected);
 
                 // send the login session command
-                APICommand command = GetCommand(APIGlobal.API_SESSION);
+                APICommand command = GetCommand(APIGlobal.ApiSession);
 
                 if (command != null)
                 {
-                    CCLDebug.PrintToConsole(eDebugLevel.Trace, "Adding Command to Queue : {0}", command);
+                    Debug.PrintToConsole(eDebugLevel.Trace, "Adding Command to Queue : {0}", command);
                     sendCommandProcessingQueue.Enqueue(command);
                 }
                 else
                 {
-                    CCLDebug.PrintToConsole(eDebugLevel.Warning, "{0}.Connect() : NULL Command retrieved from Queue", this.GetType().Name);
+                    Debug.PrintToConsole(eDebugLevel.Warning, "{0}.Connect() : NULL Command retrieved from Queue", this.GetType().Name);
                 }
 
                 loginTimer.Reset(1000, 10000); 
@@ -257,7 +257,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
             // only send the logout command if we are currently connected
             if (apiSession.Connected)
             {
-                SendCommand(new APICommand(APIGlobal.API_SESSION, RequestType.Delete, false));
+                SendCommand(new APICommand(APIGlobal.ApiSession, RequestType.Delete, false));
                 logoutResponseTimer.Reset(5000, Timeout.Infinite);
             }
             else
@@ -277,7 +277,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
             if (!apiSession.Connected)
                 return 0;
 
-            SendCommand(new APICommand(APIGlobal.API_REBOOT, RequestType.Post, false));
+            SendCommand(new APICommand(APIGlobal.ApiReboot, RequestType.Post, false));
             return 1;
         }
 
@@ -290,8 +290,8 @@ namespace MEI.Integration.PolyVideoOSRestAPI
             if (!apiSession.Connected)
                 return 0;
 
-            SendCommand(new APICommand(APIGlobal.API_DEVICE_MODE, RequestType.Post, false));
-            SendCommand(APIGlobal.API_SYSTEM_MODE_STATUS);
+            SendCommand(new APICommand(APIGlobal.ApiDeviceMode, RequestType.Post, false));
+            SendCommand(APIGlobal.ApiSystemModeStatus);
             return 1;
         }
 
@@ -304,8 +304,8 @@ namespace MEI.Integration.PolyVideoOSRestAPI
             if (!apiSession.Connected)
                 return 0;
 
-            SendCommand(new APICommand(APIGlobal.API_DEVICE_MODE, RequestType.Delete, false));
-            SendCommand(GetCommand(APIGlobal.API_SYSTEM_MODE_STATUS));
+            SendCommand(new APICommand(APIGlobal.ApiDeviceMode, RequestType.Delete, false));
+            SendCommand(GetCommand(APIGlobal.ApiSystemModeStatus));
 
             return 1;
         }
@@ -333,7 +333,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
                 sendCommandProcessingQueue.Clear();
 
                 // queue a new command
-                sendCommandProcessingQueue.Enqueue(GetCommand(APIGlobal.API_SESSION));
+                sendCommandProcessingQueue.Enqueue(GetCommand(APIGlobal.ApiSession));
                 
             }
             else
@@ -463,7 +463,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
             // too many failed login attempts and are locked out
             else if (eventArgs.State == eSessionState.LOCKED_OUT)
             {
-                CCLDebug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Locked Out, too many login attempts to {1}. User = {2}", this.GetType().Name, apiSession.HostnameOrIPAddress, apiSession.Credentials.Username);
+                Debug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Locked Out, too many login attempts to {1}. User = {2}", this.GetType().Name, apiSession.HostnameOrIPAddress, apiSession.Credentials.Username);
 
                 // remove any old session cookie
                 if (apiSession.HTTPHeaders.ContainsKey("Cookie"))
@@ -482,7 +482,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
             }
             else if (eventArgs.State == eSessionState.INVALID_CREDENTIALS)
             {
-                CCLDebug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Invalid Credentials for {1}. User = {2}", this.GetType().Name, apiSession.HostnameOrIPAddress, apiSession.Credentials.Username);
+                Debug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Invalid Credentials for {1}. User = {2}", this.GetType().Name, apiSession.HostnameOrIPAddress, apiSession.Credentials.Username);
 
                 apiSession.Connected = false;
                 apiSession.State = eSessionState.INVALID_CREDENTIALS;
@@ -490,7 +490,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
             }
             else if (eventArgs.State == eSessionState.LOGIN_ERROR) // otherwise assume that we need to login again
             {
-                CCLDebug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Error Logging In to {1}", this.GetType().Name, apiSession.HostnameOrIPAddress);
+                Debug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Error Logging In to {1}", this.GetType().Name, apiSession.HostnameOrIPAddress);
 
                 if (apiSession.ConnectionRequested == true)
                     loginTimer.Reset(120000, 120000); // StartExtended();
@@ -537,9 +537,9 @@ namespace MEI.Integration.PolyVideoOSRestAPI
                 string urlPath = NetworkHelperFunctions.GetURLPath(eventArgs.Response.ResponseURL);
                 string genericPath = APIGlobal.CreateFullRESTAPIPath("*");
 
-                CCLDebug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.ResponserHandlerUnregisteredResponseReceived() :  URL Path = {2}, Generic Path = {3}", this.GetType().Name, urlPath, genericPath);
+                Debug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.ResponserHandlerUnregisteredResponseReceived() :  URL Path = {2}, Generic Path = {3}", this.GetType().Name, urlPath, genericPath);
 
-                if (CCLDebug.CheckDebugLevel(eDebugLevel.Trace))
+                if (Debug.CheckDebugLevel(eDebugLevel.Trace))
                 {
                     foreach (string key in responseHandlersCollection.Keys)
                     {
@@ -579,7 +579,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         /// <param name="eventArgs"></param>
         private void ResponseHandlerUnhandledResponseReceived(object sender, APIUnknownResponseEventArgs eventArgs)
         {
-            CCLWebResponse response = eventArgs.Response;
+            WebResponse response = eventArgs.Response;
 
             // check the content returned and the return code. If 403/Forbidden is returned and the content is HTML then we are probably not logged in
             if ((apiSession.ConnectionRequested == true)
@@ -601,7 +601,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="response"></param>
-        private void HandleCommandQueueResponseReceived(object sender, CCLWebResponse response)
+        private void HandleCommandQueueResponseReceived(object sender, WebResponse response)
         {
             if( response != null )
                 responseHandlerProcessingQueue.Enqueue(response);
@@ -623,7 +623,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
             }
             else
             {
-                CCLDebug.PrintExceptionToConsoelAndLog(eDebugLevel.Error, ex, "{0}.HandleCommandQueueProcessingException( )", this.GetType().Name);
+                Debug.PrintExceptionToConsoelAndLog(eDebugLevel.Error, ex, "{0}.HandleCommandQueueProcessingException( )", this.GetType().Name);
                 
             }
         }
@@ -653,11 +653,11 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         private void InitializeAPICommands()
         {
             // login commands
-            APICommand command = new APICommand(APIGlobal.API_SESSION, eCommandInputFormatType.BODY_JSON, ((APIInputCommand)apiSession), null, RequestType.Post, true, true, 10);
+            APICommand command = new APICommand(APIGlobal.ApiSession, eCommandInputFormatType.BODY_JSON, ((APIInputCommand)apiSession), null, RequestType.Post, true, true, 10);
             apiCommandCollection.Add(command.Path, command);
 
             // device mode status : gets device mode, provider, etc.. ( is the device setup for Poly, Zoom, etc... )
-            command = new APICommand(APIGlobal.API_SYSTEM_MODE_STATUS, eCommandInputFormatType.NONE, null, null, RequestType.Get, true, true, 10);
+            command = new APICommand(APIGlobal.ApiSystemModeStatus, eCommandInputFormatType.NONE, null, null, RequestType.Get, true, true, 10);
             apiCommandCollection.Add(command.Path, command);
 
             // add additional command objects
@@ -676,14 +676,14 @@ namespace MEI.Integration.PolyVideoOSRestAPI
             responseHandlersCollection.Add(genericHandler.GetFullAPIPath(), genericHandler);
 
             // session handler
-            SessionResponseHandler sessionHandler = new SessionResponseHandler(apiSession, APIGlobal.API_SESSION);
+            SessionResponseHandler sessionHandler = new SessionResponseHandler(apiSession, APIGlobal.ApiSession);
             sessionHandler.OnUnknownResponseReceived += ResponseHandlerUnhandledResponseReceived;
             sessionHandler.OnErrorResponseReceived += ReponseHandlerServerErrorResponseReceived;
             sessionHandler.OnSessionStateChanged += SessionStateChanged;
             responseHandlersCollection.Add(sessionHandler.GetFullAPIPath(), sessionHandler);
 
             // device mode status
-            SystemModeStatusResponseHandler systemModeStatusHandler = new SystemModeStatusResponseHandler(apiSession, APIGlobal.API_SYSTEM_MODE_STATUS);
+            SystemModeStatusResponseHandler systemModeStatusHandler = new SystemModeStatusResponseHandler(apiSession, APIGlobal.ApiSystemModeStatus);
             systemModeStatusHandler.OnUnknownResponseReceived += ResponseHandlerUnhandledResponseReceived;
             systemModeStatusHandler.OnErrorResponseReceived += ReponseHandlerServerErrorResponseReceived;
             systemModeStatusHandler.OnSystemModeChanged += SystemModeStatusChanged;
@@ -710,7 +710,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         {
             SetSessionState(eSessionState.LOGGING_IN, false);
 
-            CCLDebug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.SessionReconnect( ) : Reconnecting to {1}", this.GetType().Name, apiSession.HostnameOrIPAddress);
+            Debug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.SessionReconnect( ) : Reconnecting to {1}", this.GetType().Name, apiSession.HostnameOrIPAddress);
 
             statusPollingTimer.Stop();
             sendCommandProcessingQueue.Clear();
@@ -751,7 +751,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         /// </summary>
         private void EnqueueStatusPollingCommands()
         {            
-            sendCommandProcessingQueue.Enqueue(GetCommand(APIGlobal.API_SYSTEM_MODE_STATUS));
+            sendCommandProcessingQueue.Enqueue(GetCommand(APIGlobal.ApiSystemModeStatus));
             //PrintDebugMessage("{0}.EnqueueStatusPollingCommands( ) : Adding Commands to Queue[{1}]", this.GetType().Name, sendCommandProcessingQueue.Count);
         }
 
@@ -834,7 +834,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
 
                 case eEthernetEventType.LinkDown:
                     // ethernet link went down, disconnect or do nothing?
-                    CCLDebug.PrintToConsoleAndLog(eDebugLevel.Notice, "{0} - Ethernet Link Disconnected", this.GetType().Name);
+                    Debug.PrintToConsoleAndLog(eDebugLevel.Notice, "{0} - Ethernet Link Disconnected", this.GetType().Name);
 
                     loginTimer.Stop();
                     statusPollingTimer.Stop();
@@ -878,7 +878,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
             }
         }
 
-        private void PrintDebugMessage(CCLWebResponse response)
+        private void PrintDebugMessage(WebResponse response)
         {
             if (this.debugState)
             {

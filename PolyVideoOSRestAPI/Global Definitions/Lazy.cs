@@ -24,7 +24,7 @@
 using System;
 using Crestron.SimplSharp;
 
-namespace MEI.Integration.PolyVideoOSRestAPI
+namespace PolyVideoOSRestAPI
 {
     /// <summary>
     /// Wrapper for lazy initialization support (before .NET 4.0).

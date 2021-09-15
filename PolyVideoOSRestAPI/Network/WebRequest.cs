@@ -7,15 +7,15 @@ using System.Text;
 using Crestron.SimplSharp;
 using RequestType = Crestron.SimplSharp.Net.Https.RequestType;
 
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Logging;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Network
+namespace PolyVideoOSRestAPI.Network
 {
 
     /// <summary>
     /// Holds the data needed to make a request to a web service
     /// </summary>
-    public class CCLWebRequest : ICCLDebuggable
+    public class WebRequest : IDebuggable
     {
         // hostname or IP address to connect to
         public string Host { get; private set; }
@@ -78,14 +78,14 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
         /// <param name="URLPath">The path to append to the host</param>
         /// <param name="port">The port to connect to</param>
         /// <param name="requestType">The type of request to send. GET, POST, ...</param>
-        public CCLWebRequest( string host, string URLPath, int port, RequestType requestType )
+        public WebRequest( string host, string URLPath, int port, RequestType requestType )
         {
             TimeoutEnabled = false;
             PeerVerification = false;
             HostVerification = false;
             KeepAlive = true;
             EncodingType = Encoding.UTF8;
-            AuthenticationType = RequestAuthType.NONE;
+            AuthenticationType = RequestAuthType.None;
 
             Host = host;
             Path = URLPath;
@@ -110,7 +110,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
         /// <param name="peerVerification">Whether peer verification is used</param>
         /// <param name="hostVerification">Whether host verification is used</param>
         /// <param name="encoding">The type of encoding to use</param>
-        public CCLWebRequest(string host, string URLPath, int port, RequestType requestType, RequestAuthType authType, string userName, string password, IEnumerable<KeyValuePair<string, string>> headers,
+        public WebRequest(string host, string URLPath, int port, RequestType requestType, RequestAuthType authType, string userName, string password, IEnumerable<KeyValuePair<string, string>> headers,
             string content, bool timeoutEnabled, int timeout, bool keepAlive, bool peerVerification, bool hostVerification, Encoding encoding )
         {          
             Host = host;
@@ -149,7 +149,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
         /// <param name="peerVerification">Whether peer verification is used</param>
         /// <param name="hostVerification">Whether host verification is used</param>
         /// <param name="encoding">The type of encoding to use</param>
-        public CCLWebRequest(string host, string URLPath, int port, RequestType requestType, RequestAuthType authType, string userName, string password, IEnumerable<KeyValuePair<string, string>> headers,
+        public WebRequest(string host, string URLPath, int port, RequestType requestType, RequestAuthType authType, string userName, string password, IEnumerable<KeyValuePair<string, string>> headers,
             byte[] content, bool timeoutEnabled, int timeout, bool keepAlive, bool peerVerification, bool hostVerification, Encoding encoding)
         {
             Host = host;
@@ -221,7 +221,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
             return str.ToString();
         }
 
-        #region ICCLDebuggable Members
+        #region IDebuggable Members
 
         public void PrintDebugState()
         {

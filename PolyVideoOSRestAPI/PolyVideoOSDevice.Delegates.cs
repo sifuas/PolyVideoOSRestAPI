@@ -6,10 +6,10 @@ using System.Text;
 // crestron librarires
 using Crestron.SimplSharp;
 
-using MEI.Integration.PolyVideoOSRestAPI;
-using MEI.Integration.PolyVideoOSRestAPI.API_Objects;
+using PolyVideoOSRestAPI;
+using PolyVideoOSRestAPI.API_Objects;
 
-namespace MEI.Integration.PolyVideoOSRestAPI
+namespace PolyVideoOSRestAPI
 {
 
     /// <summary>

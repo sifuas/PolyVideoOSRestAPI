@@ -6,7 +6,7 @@ using Crestron.SimplSharp;
 
 using Newtonsoft.Json;
 
-namespace MEI.Integration.PolyVideoOSRestAPI
+namespace PolyVideoOSRestAPI
 {
     internal class APIAuthenticationCredentials
     {

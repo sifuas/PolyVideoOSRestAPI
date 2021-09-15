@@ -7,18 +7,18 @@ using System.Text;
 using Crestron.SimplSharp;
 using Crestron.SimplSharp.Net.Https;
 
-using MEI.Integration.PolyVideoOSRestAPI.Network;
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Network;
+using PolyVideoOSRestAPI.Logging;
 
 using RequestType = Crestron.SimplSharp.Net.Https.RequestType;
 using HttpsClient = Crestron.SimplSharp.Net.Https.HttpsClient;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Network.REST
+namespace PolyVideoOSRestAPI.Network.REST
 {
     /// <summary>
     /// Client to implement basic REST communication over HTTPS
     /// </summary>
-    public class CCLHttpsRESTClient : CCLGenericRestClientBase, IDisposable, ICCLDebuggable
+    public class HttpsRESTClient : GenericRestClientBase, IDisposable, IDebuggable
     {
         public int PoolSize { get; private set; }
 
@@ -28,7 +28,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network.REST
         /// <summary>
         /// Default constructor for simpl+
         /// </summary>
-        public CCLHttpsRESTClient() : this(10)
+        public HttpsRESTClient() : this(10)
         {            
         }
 
@@ -36,7 +36,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network.REST
         /// Construct the client with the given pool size
         /// </summary>
         /// <param name="poolsize"></param>
-        public CCLHttpsRESTClient(int poolsize)
+        public HttpsRESTClient(int poolsize)
         {
             PoolSize = poolsize;
             _httpsClientPool
@@ -57,7 +57,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network.REST
         /// </summary>
         /// <param name="webRequest">The request data for the connection</param>
         /// <returns>The web response if one was received</returns>
-        public override CCLWebResponse SubmitRequest( CCLWebRequest webRequest )
+        public override WebResponse SubmitRequest( WebRequest webRequest )
         {
             // validate data
             if ((webRequest.Host == null) || webRequest.Host.Length == 0)            
@@ -72,7 +72,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network.REST
                 if (client.ProcessBusy)
                     client.Abort();
 
-                CCLDebug.PrintToConsole(eDebugLevel.Trace,"{0}.SubmitRequest() - Sending REST Request {1}", this.GetType().Name, webRequest);
+                Debug.PrintToConsole(eDebugLevel.Trace,"{0}.SubmitRequest() - Sending REST Request {1}", this.GetType().Name, webRequest);
 
                 // configure client
                 client.HostVerification = webRequest.HostVerification;
@@ -113,7 +113,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network.REST
                 }
 
                 // check if authentication is needed
-                if ( ( webRequest.AuthenticationType != RequestAuthType.NONE ) && !String.IsNullOrEmpty(webRequest.Username))
+                if ( ( webRequest.AuthenticationType != RequestAuthType.None ) && !String.IsNullOrEmpty(webRequest.Username))
                 {
                     string authorizationHeader = NetworkHelperFunctions.CreateBasicAuthentiationBase64Encoding(webRequest.Username, webRequest.Password);
 
@@ -136,7 +136,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network.REST
                 }
 
                 // return the response data
-                return new CCLWebResponse((CCLHttpStatusCode)response.Code, response.ContentString, response.ResponseUrl, responseHeaders, httpsRequest.RequestType );
+                return new WebResponse((HttpStatusCode)response.Code, response.ContentString, response.ResponseUrl, responseHeaders, httpsRequest.RequestType );
             }
             finally
             {

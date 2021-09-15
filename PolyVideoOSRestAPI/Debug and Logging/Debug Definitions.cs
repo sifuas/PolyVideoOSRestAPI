@@ -6,12 +6,12 @@ using System.Text;
 using Crestron.SimplSharp;
 using Crestron.SimplSharp.CrestronLogger;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Logging
+namespace PolyVideoOSRestAPI.Logging
 {
     /// <summary>
     /// Represents a device that can be debugged and provides functions to help with debugging.
     /// </summary>
-    public interface ICCLDebuggable
+    public interface IDebuggable
     {
         void PrintDebugState();
     }
@@ -19,11 +19,11 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Logging
     /// <summary>
     /// Encapsulate logic for debugging
     /// </summary>
-    public static class CCLDebug
+    public static class Debug
     {
         public static eDebugLevel DebugLevel { get; set; }
 
-        static CCLDebug()
+        static Debug()
         {            
             DebugLevel = eDebugLevel.Error;
         }

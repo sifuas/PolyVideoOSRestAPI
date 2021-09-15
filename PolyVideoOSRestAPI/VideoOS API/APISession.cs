@@ -10,18 +10,17 @@ using Crestron.SimplSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
-using MEI.Integration.PolyVideoOSRestAPI.Network;
-using MEI.Integration.PolyVideoOSRestAPI.Network.REST;
+using PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Network;
+using PolyVideoOSRestAPI.Network.REST;
+using PolyVideoOSRestAPI.InputCommands;
 
-using MEI.Integration.PolyVideoOSRestAPI.InputCommands;
-
-namespace MEI.Integration.PolyVideoOSRestAPI
+namespace PolyVideoOSRestAPI
 {
-    internal sealed class APISession : APIInputCommand, IDisposable, ICCLDebuggable
+    internal sealed class APISession : APIInputCommand, IDisposable, IDebuggable
     {
         // the client to connect to
-        public CCLGenericRestClientBase Connection { get; internal set; }
+        public GenericRestClientBase Connection { get; internal set; }
 
         // store headers needed to communicate with the API
         public Dictionary<string, string> HTTPHeaders { get; internal set; }
@@ -61,7 +60,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         public APISession()
         {            
             Credentials          = new APIAuthenticationCredentials();
-            Connection           = new CCLHttpsRESTClient();
+            Connection           = new HttpsRESTClient();
             HTTPHeaders          = new Dictionary<string, string>();
         }
 
@@ -97,7 +96,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         #region VideoOSInputCommandObject Members
 
         /// <summary>
-        /// Convert this object into the appropriate strng for the input type
+        /// Convert this object into the appropriate string for the input type
         /// </summary>
         /// <param name="inputType">The type</param>
         /// <returns></returns>
@@ -143,7 +142,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
 
         #endregion
 
-        #region ICCLDebuggable Members
+        #region IDebuggable Members
 
         public void PrintDebugState()
         {

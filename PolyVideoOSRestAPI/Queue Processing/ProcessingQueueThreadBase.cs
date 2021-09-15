@@ -7,14 +7,14 @@ using System.Net;
 // crestron libraries
 using Crestron.SimplSharp;
 
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Logging;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Queue
+namespace PolyVideoOSRestAPI.Queue
 {
     /// <summary>
     /// Encapsulate the queue processing logic
     /// </summary>
-    public abstract class ProcessingQueueThreadBase<T> : IQueue<T>, ICCLDebuggable
+    public abstract class ProcessingQueueThreadBase<T> : IQueue<T>, IDebuggable
     {
         public string Key { get; private set; }
 
@@ -68,7 +68,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
         {
             if (IsDisposed)
             {
-                CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Can't Enqueue new Object, Queue already disposed.", this.GetType().Name, typeof(T).FullName, Name);
+                Debug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Can't Enqueue new Object, Queue already disposed.", this.GetType().Name, typeof(T).FullName, Name);
                 //CrestronConsole.PrintLine( "{0}<{1}>.ProcessQueue() [ {2} ] :  Can't Enqueue new Object, Queue already disposed.", this.GetType().Name, typeof(T).FullName, Name);            
                 return;
             }
@@ -83,19 +83,19 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
                 _processingQueue = new CrestronQueue<T>();                
             }
 
-            CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Enqueue new Object.", this.GetType().Name, typeof(T).FullName, Name);            
+            Debug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Enqueue new Object.", this.GetType().Name, typeof(T).FullName, Name);            
 
             // enqueue the object to process
             _processingQueue.Enqueue(queueObject);
 
             if (firstTimeEnqueue)
             {
-                CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Starting Dequeue Processing Thread", this.GetType().Name, typeof(T).FullName, Name);
+                Debug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Starting Dequeue Processing Thread", this.GetType().Name, typeof(T).FullName, Name);
 
                 CrestronInvoke.BeginInvoke(thread => ProcessQueue());
             }
 
-            CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Signaling Dequeue Thread to Wake Up", this.GetType().Name, typeof(T).FullName, Name);
+            Debug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Signaling Dequeue Thread to Wake Up", this.GetType().Name, typeof(T).FullName, Name);
 
             // signal to the potentially waiting thread to wake up and process the object
             _queueWaitHandle.Set();
@@ -109,11 +109,11 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
         {
             if (IsDisposed)
             {
-                CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Can't Clear Queue, Queue already disposed.", this.GetType().Name, typeof(T).FullName, Name);
+                Debug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Can't Clear Queue, Queue already disposed.", this.GetType().Name, typeof(T).FullName, Name);
                 return;
             }
             
-            //CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Clear() Count = {3}", this.GetType().Name, typeof(T).FullName, Name, _processingQueue.Count);
+            //Debug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Clear() Count = {3}", this.GetType().Name, typeof(T).FullName, Name, _processingQueue.Count);
             if( _processingQueue != null )
                 _processingQueue.Clear();
         }
@@ -125,7 +125,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
         {            
             try
             {
-                CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Starting", this.GetType().Name, typeof(T).FullName, Name);
+                Debug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Starting", this.GetType().Name, typeof(T).FullName, Name);
                 //CrestronConsole.PrintLine( "{0}<{1}>.ProcessQueue() [ {2} ] :  Starting", this.GetType().Name, typeof(T).FullName, Name);
                 //ErrorLog.Notice("{0}<{1}>.ProcessQueue() [ {2} ] :  Starting", this.GetType().Name, typeof(T).FullName, Name);  
 
@@ -136,7 +136,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
                         // check if the queue should exit
                         if ( IsDisposed == true)
                         {
-                            CCLDebug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Exiting ProcessQueue().  Disposed = {4}", this.GetType().Name, typeof(T).FullName, Name, _disposed);
+                            Debug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] :  Exiting ProcessQueue().  Disposed = {4}", this.GetType().Name, typeof(T).FullName, Name, _disposed);
                             //CrestronConsole.PrintLine( "{0}<{1}>.ProcessQueue() [ {2} ] :  Exiting ProcessQueue().  Disposed = {4}", this.GetType().Name, typeof(T).FullName, Name, _disposed);
                             //ErrorLog.Notice("{0}<{1}>.ProcessQueue() [ {2} ] :  Exiting ProcessQueue().  Disposed = {4}", this.GetType().Name, typeof(T).FullName, Name, _disposed);
                             return;
@@ -175,7 +175,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
             }
             finally
             {
-                CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] : Exiting", this.GetType().Name, typeof(T).Name, Name);
+                Debug.PrintToConsole(eDebugLevel.Trace, "{0}<{1}>.ProcessQueue() [ {2} ] : Exiting", this.GetType().Name, typeof(T).Name, Name);
                 //ErrorLog.Notice("{0}<{1}>.ProcessQueue() [ {2} ] : Exiting", this.GetType().Name, typeof(T).Name, Name);
             }
         }
@@ -210,7 +210,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
             }                
         }
 
-        #region ICCLDebuggable Members
+        #region IDebuggable Members
 
         public virtual void PrintDebugState()
         {
@@ -220,7 +220,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
             {
                 CrestronConsole.PrintLine("Queue Count = {0}", _processingQueue.Count);
 
-                if( typeof(ICCLDebuggable).IsAssignableFrom(typeof(T)))
+                if( typeof(IDebuggable).IsAssignableFrom(typeof(T)))
                 {
                     T[] objects = new T[_processingQueue.Count];
                     _processingQueue.CopyTo( objects, 0 );
@@ -228,7 +228,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
                     foreach (T obj in objects)
                     {
                         if( obj != null )
-                            ((ICCLDebuggable)obj).PrintDebugState();
+                            ((IDebuggable)obj).PrintDebugState();
                     }
                 }
             }

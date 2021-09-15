@@ -6,17 +6,15 @@ using System.Text;
 // crestron libraries
 using Crestron.SimplSharp;
 
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
-using MEI.Integration.PolyVideoOSRestAPI.Network;
-using MEI.Integration.PolyVideoOSRestAPI.Network.REST;
+using PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Network;
+using PolyVideoOSRestAPI.Network.REST;
+using PolyVideoOSRestAPI.Queue;
+using PolyVideoOSRestAPI.ResponseHandlers;
 
-using MEI.Integration.PolyVideoOSRestAPI.Queue;
-
-using MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers;
-
-namespace MEI.Integration.PolyVideoOSRestAPI.Queue
+namespace PolyVideoOSRestAPI.Queue
 {
-    internal sealed class ResponseHandlerProcessingQueue : ProcessingQueueThreadBase<CCLWebResponse>
+    internal sealed class ResponseHandlerProcessingQueue : ProcessingQueueThreadBase<WebResponse>
     {
        
         // store a reference to the collection of response handlers
@@ -39,11 +37,11 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
         /// If a specific response handler is not found then
         /// </summary>
         /// <param name="command"></param>
-        public override void ProcessQueueObject(CCLWebResponse response)
+        public override void ProcessQueueObject(WebResponse response)
         {
             if (response == null || IsDisposed == true )
             {
-                CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  Exiting ProcessQueueObject( ). IsDisposed = {4}", this.GetType().Name, Name, IsDisposed);
+                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  Exiting ProcessQueueObject( ). IsDisposed = {4}", this.GetType().Name, Name, IsDisposed);
                 return;
             }
 
@@ -69,8 +67,8 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Queue
             }
             else
             {                
-                CCLDebug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  Unhandled Response Received. Responsse = {2}", this.GetType().Name, Name, response);
-                CCLDebug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  URL Path = {2}, Generic Path = {3}", this.GetType().Name, Name, urlPath, genericPath);
+                Debug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  Unhandled Response Received. Responsse = {2}", this.GetType().Name, Name, response);
+                Debug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  URL Path = {2}, Generic Path = {3}", this.GetType().Name, Name, urlPath, genericPath);
 
                 foreach (string key in responseHandlersCollection.Keys)
                 {

@@ -24,15 +24,15 @@
 using System;
 using Crestron.SimplSharp;
 
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Logging;
 
-namespace MEI.Integration.PolyVideoOSRestAPI
+namespace PolyVideoOSRestAPI
 {
     /// <summary>
     /// An object pool to help with minimizing GC cleanup and re-allocations.
     /// </summary>
     /// <typeparam name="T">Pool object type.</typeparam>
-    public sealed class ObjectPool<T> : IDisposable, ICCLDebuggable
+    public sealed class ObjectPool<T> : IDisposable, IDebuggable
         where T : class, new()
     {
         private readonly CCriticalSection _disposeLock = new CCriticalSection();
@@ -208,7 +208,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
 
         #region IDebugDevice Members
 
-        void ICCLDebuggable.PrintDebugState()
+        void IDebuggable.PrintDebugState()
         {
             throw new NotImplementedException();
         }

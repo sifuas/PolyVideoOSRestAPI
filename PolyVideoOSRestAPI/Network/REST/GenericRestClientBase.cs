@@ -7,13 +7,13 @@ using System.Text;
 using Crestron.SimplSharp;
 using RequestType = Crestron.SimplSharp.Net.Https.RequestType;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Network.REST
+namespace PolyVideoOSRestAPI.Network.REST
 {
-    public abstract class CCLGenericRestClientBase
+    public abstract class GenericRestClientBase
     {
-        public abstract CCLWebResponse SubmitRequest(CCLWebRequest request);
+        public abstract WebResponse SubmitRequest(WebRequest request);
 
-        protected string GenerateURL(CCLWebRequest request, bool secure )
+        protected string GenerateURL(WebRequest request, bool secure )
         {
             string protocol = "http://";
             if (secure)

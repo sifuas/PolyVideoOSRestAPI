@@ -9,11 +9,10 @@ using Crestron.SimplSharp;
 // 3rd party libraries
 using Newtonsoft.Json;
 
-using MEI.Integration.PolyVideoOSRestAPI.Network;
+using PolyVideoOSRestAPI.Network;
+using PolyVideoOSRestAPI.API_Objects;
 
-using MEI.Integration.PolyVideoOSRestAPI.API_Objects;
-
-namespace MEI.Integration.PolyVideoOSRestAPI
+namespace PolyVideoOSRestAPI
 {
 
     /// <summary>
@@ -21,7 +20,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
     /// </summary>
     public abstract class APIEventArgsBase : EventArgs
     {
-        public CCLWebResponse Response { get; protected set; }
+        public WebResponse Response { get; protected set; }
     }
 
     /// <summary>
@@ -29,7 +28,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
     /// </summary>
     public class APIUnknownResponseEventArgs : APIEventArgsBase
     {
-        public APIUnknownResponseEventArgs(CCLWebResponse response)
+        public APIUnknownResponseEventArgs(WebResponse response)
         {
             Response = response;
         }
@@ -40,7 +39,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
     /// </summary>
     public class APIErrorResponseEventArgs : APIEventArgsBase
     {
-        public APIErrorResponseEventArgs(CCLWebResponse response)
+        public APIErrorResponseEventArgs(WebResponse response)
         {
             Response = response;
         }
@@ -68,7 +67,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         // default constructor for simpl+
         public APISessionStateEventArgs() { }
 
-        public APISessionStateEventArgs(eSessionState state, string sessionID, CCLWebResponse response, APISessionStateObject sessionState)
+        public APISessionStateEventArgs(eSessionState state, string sessionID, WebResponse response, APISessionStateObject sessionState)
         {
             State = state;
             SessionID = sessionID;
@@ -88,7 +87,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         // default constructor for simpl+
         public APISystemModeStateEventArgs() { }
 
-        public APISystemModeStateEventArgs(APISystemModeObject systemMode, CCLWebResponse response)
+        public APISystemModeStateEventArgs(APISystemModeObject systemMode, WebResponse response)
         {
             SystemMode = systemMode;
             Response = response;
@@ -103,7 +102,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI
         // default constructor for simpl+
         public APIGenericStateEventArgs() { }
 
-        public APIGenericStateEventArgs(CCLWebResponse response)
+        public APIGenericStateEventArgs(WebResponse response)
         {
             Response = response;
         }

@@ -7,18 +7,18 @@ using System.Text;
 using Crestron.SimplSharp;
 using RequestType = Crestron.SimplSharp.Net.Https.RequestType;
 
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Logging;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Network
+namespace PolyVideoOSRestAPI.Network
 {
 
     /// <summary>
     /// Encapsulate the response from a http or https web request
     /// </summary>
-    public class CCLWebResponse : ICCLDebuggable
+    public class WebResponse : IDebuggable
     {
         // status code of the request        
-        public CCLHttpStatusCode StatusCode { get; private set; }
+        public HttpStatusCode StatusCode { get; private set; }
 
         // value of any content        
         public string Content { get; private set; }
@@ -38,7 +38,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
         /// <param name="status">The HTTP status code</param>
         /// <param name="content">Content returned from the request</param>
         /// <param name="responseURL">URL returned from the request</param>
-        public CCLWebResponse(CCLHttpStatusCode status, string content, string responseURL, Dictionary<string,string> responseHeaders, RequestType requestType )
+        public WebResponse(HttpStatusCode status, string content, string responseURL, Dictionary<string,string> responseHeaders, RequestType requestType )
         {
             StatusCode = status;
             Content = content;
@@ -78,7 +78,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
             return str.ToString();
         }
 
-        #region ICCLDebuggable Members
+        #region IDebuggable Members
 
         public void PrintDebugState()
         {

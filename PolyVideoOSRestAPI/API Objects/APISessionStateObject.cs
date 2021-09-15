@@ -10,7 +10,7 @@ using Crestron.SimplSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.API_Objects
+namespace PolyVideoOSRestAPI.API_Objects
 {
     public class APISessionStateObject : APIObjectBase
     {

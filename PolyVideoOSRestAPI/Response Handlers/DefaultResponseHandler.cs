@@ -5,15 +5,14 @@ using System.Text;
 
 using Crestron.SimplSharp;
 
-using MEI.Integration.PolyVideoOSRestAPI.Network;
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using MEI.Integration.PolyVideoOSRestAPI;
+using PolyVideoOSRestAPI.Network;
+using PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
+namespace PolyVideoOSRestAPI.ResponseHandlers
 {
     internal class DefaultResponseHandler : APIResponseHandlerBase
     {
@@ -24,11 +23,11 @@ namespace MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers
         {
         }
 
-        public override void HandleAPIResponse(CCLWebResponse result)
+        public override void HandleAPIResponse(WebResponse result)
         {
             if (result == null)
             {
-                CCLDebug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : NULL web response", this.GetType().Name );
+                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : NULL web response", this.GetType().Name );
                 return;
             }           
 

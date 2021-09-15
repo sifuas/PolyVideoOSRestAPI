@@ -6,11 +6,11 @@ using System.Text;
 // crestron librarires
 using Crestron.SimplSharp;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Network
+namespace PolyVideoOSRestAPI.Network
 {
     public enum RequestAuthType
     {
-        NONE    = 0,
-        BASIC   = 1
+        None,
+        Basic
     }
 }

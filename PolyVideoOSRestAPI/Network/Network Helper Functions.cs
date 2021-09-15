@@ -8,23 +8,23 @@ using Crestron.SimplSharp;
 using Crestron.SimplSharp.Net.Http;
 
 // Core Library
-using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using PolyVideoOSRestAPI.Logging;
 
-namespace MEI.Integration.PolyVideoOSRestAPI.Network
+namespace PolyVideoOSRestAPI.Network
 {
     /// <summary>
     /// Misc. functions to help with network communications
     /// </summary>
     public static class NetworkHelperFunctions
     {
-        public static bool HTTPStatusIsClientError(CCLHttpStatusCode code)
+        public static bool HTTPStatusIsClientError(HttpStatusCode code)
         {
-            return ((code >= CCLHttpStatusCode.BadRequest) && (code <= CCLHttpStatusCode.UpgradeRequired));
+            return ((code >= HttpStatusCode.BadRequest) && (code <= HttpStatusCode.UpgradeRequired));
         }
 
-        public static bool HTTPStatusIsServerError(CCLHttpStatusCode code)
+        public static bool HTTPStatusIsServerError(HttpStatusCode code)
         {
-            return ((code >= CCLHttpStatusCode.InternalServerError) && (code <= CCLHttpStatusCode.HttpVersionNotSupported));
+            return ((code >= HttpStatusCode.InternalServerError) && (code <= HttpStatusCode.HttpVersionNotSupported));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
         /// <returns></returns>
         public static string ConvertToHex(string messageString)
         {
-            byte[] stringBytes = Encoding.GetEncoding(28591).GetBytes(messageString);
+            byte[] stringBytes = Encoding.GetEncoding(Global.DefaultEncodingCodePage).GetBytes(messageString);
             return ConvertToHex(stringBytes);
         }
 
@@ -57,7 +57,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
         /// <returns></returns>
         public static string ConvertToDefaultBase64Encoding(string stringToEncode)
         {
-            return ConvertToBase64Encoding(stringToEncode, MEI.Integration.PolyVideoOSRestAPI.Global.DEFAULT_ENCODING_NAME);
+            return ConvertToBase64Encoding(stringToEncode, PolyVideoOSRestAPI.Global.DefaultEncodingName);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
             }
             catch (Exception ex)
             {
-                CCLDebug.PrintExceptionToConsole(eDebugLevel.Error, ex, "NetworkHelperFunctions.ConvertToBase64Encoding(): Error Encoding String using encoding " + encodingName );
+                Debug.PrintExceptionToConsole(eDebugLevel.Error, ex, "NetworkHelperFunctions.ConvertToBase64Encoding(): Error Encoding String using encoding " + encodingName );
             }
 
             return base64EncodedString;
@@ -98,7 +98,7 @@ namespace MEI.Integration.PolyVideoOSRestAPI.Network
             }
             catch (Exception ex)
             {
-                CCLDebug.PrintExceptionToConsole(eDebugLevel.Error, ex, "NetworkHelperFunctions.ConvertToBase64Encoding(): Error Encoding String using encoding " + codepage);
+                Debug.PrintExceptionToConsole(eDebugLevel.Error, ex, "NetworkHelperFunctions.ConvertToBase64Encoding(): Error Encoding String using encoding " + codepage);
             }
 
             return base64EncodedString;
