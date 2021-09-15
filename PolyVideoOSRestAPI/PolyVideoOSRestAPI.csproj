@@ -46,10 +46,6 @@
     <GenerateSerializationAssemblies>off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CCL_Common, Version=1.0.0.25540, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CommonCoreLibrary\CommonCoreLibrary\CCL_Common\bin\Debug\CCL_Common.dll</HintPath>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json.Compact, Version=4.0.8.0, Culture=neutral, PublicKeyToken=1099c178b3b54c3b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -72,10 +68,28 @@
     <Compile Include="API Objects\APISystemModeObject.cs" />
     <Compile Include="API Objects\APIObjectBase.cs" />
     <Compile Include="Commands\API Commands.cs" />
+    <Compile Include="Debug and Logging\Debug Definitions.cs" />
     <Compile Include="Events\Common Event Definitions.cs" />
+    <Compile Include="Extensions\String Extensions.cs" />
+    <Compile Include="Global Definitions\CommonUtilities.cs" />
+    <Compile Include="Global Definitions\Global Definitions.cs" />
+    <Compile Include="Global Definitions\IKeyedObject.cs" />
+    <Compile Include="Global Definitions\Lazy.cs" />
+    <Compile Include="Global Definitions\Object Pool.cs" />
+    <Compile Include="Network\CCLHttpStatusCode.cs" />
+    <Compile Include="Network\CCLWebRequest.cs" />
+    <Compile Include="Network\CCLWebResponse.cs" />
+    <Compile Include="Network\Network Enumerations.cs" />
+    <Compile Include="Network\Network Event Definitions.cs" />
+    <Compile Include="Network\Network Helper Functions.cs" />
+    <Compile Include="Network\REST\CCLGenericRestClientBase.cs" />
+    <Compile Include="Network\REST\CCLHttpsRESTClient.cs" />
     <Compile Include="PolyVideoOSDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queue Processing\CommandProcessingQueue.cs" />
+    <Compile Include="Queue Processing\IQueue.cs" />
+    <Compile Include="Queue Processing\IQueueMessage.cs" />
+    <Compile Include="Queue Processing\ProcessingQueueThreadBase.cs" />
     <Compile Include="Queue Processing\ResponseHandlerProcessingQueue.cs" />
     <Compile Include="Response Handlers\SystemModeStatusResponseHandler.cs" />
     <Compile Include="Response Handlers\DefaultResponseHandler.cs" />
@@ -83,6 +97,10 @@
     <Compile Include="Response Handlers\APIResponseHandlerBase.cs" />
     <Compile Include="PolyVideoOSDevice.Delegates.cs" />
     <Compile Include="Simpl Interface\Simpl Events.cs" />
+    <Compile Include="Simpl Interface\Simpl Helper Functions.cs" />
+    <Compile Include="Timer\CountdownTimer.cs" />
+    <Compile Include="Timer\PollingTimer.cs" />
+    <Compile Include="Timer\TimerEventArgs.cs" />
     <Compile Include="VideoOS API\API Global.cs" />
     <Compile Include="VideoOS API\APIAuthenticationCredentials.cs" />
     <Compile Include="VideoOS API\APISession.cs" />

@@ -13,7 +13,7 @@ using RequestType = Crestron.SimplSharp.Net.Https.RequestType;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using CCL.Logging;
+using MEI.Integration.PolyVideoOSRestAPI.Logging;
 
 using MEI.Integration.PolyVideoOSRestAPI;
 

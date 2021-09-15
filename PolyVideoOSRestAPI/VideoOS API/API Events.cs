@@ -9,7 +9,7 @@ using Crestron.SimplSharp;
 // 3rd party libraries
 using Newtonsoft.Json;
 
-using CCL.Network;
+using MEI.Integration.PolyVideoOSRestAPI.Network;
 
 using MEI.Integration.PolyVideoOSRestAPI.API_Objects;
 

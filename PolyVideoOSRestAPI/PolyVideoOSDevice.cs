@@ -7,19 +7,17 @@ using System.Collections.Generic;
 using Crestron.SimplSharp;
 using Crestron.SimplSharp.Net.Https;
 
-using CCL;
-using CCL.Simpl;
-using CCL.Logging;
-using CCL.Network;
-using CCL.Network.REST;
-using CCL.Timer;
-using HttpStatusCode = CCL.Network.CCLHttpStatusCode;
+using MEI.Integration.PolyVideoOSRestAPI.Simpl_Interface;
+using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using MEI.Integration.PolyVideoOSRestAPI.Network;
+using MEI.Integration.PolyVideoOSRestAPI.Network.REST;
+using MEI.Integration.PolyVideoOSRestAPI.Timer;
+using HttpStatusCode = MEI.Integration.PolyVideoOSRestAPI.Network.CCLHttpStatusCode;
 
 using MEI.Integration.PolyVideoOSRestAPI.Events;
 using MEI.Integration.PolyVideoOSRestAPI.ResponseHandlers;
 using MEI.Integration.PolyVideoOSRestAPI.InputCommands;
 using MEI.Integration.PolyVideoOSRestAPI.Queue;
-using MEI.Integration.PolyVideoOSRestAPI.Simpl_Interface;
 
 namespace MEI.Integration.PolyVideoOSRestAPI
 {

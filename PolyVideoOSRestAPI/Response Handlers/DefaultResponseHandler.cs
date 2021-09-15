@@ -5,8 +5,8 @@ using System.Text;
 
 using Crestron.SimplSharp;
 
-using CCL.Network;
-using CCL.Logging;
+using MEI.Integration.PolyVideoOSRestAPI.Network;
+using MEI.Integration.PolyVideoOSRestAPI.Logging;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

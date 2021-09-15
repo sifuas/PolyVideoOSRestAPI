@@ -6,9 +6,9 @@ using System.Text;
 using Crestron.SimplSharp;
 using RequestType = Crestron.SimplSharp.Net.Https.RequestType;
 
-using CCL.Network;
-using CCL.Logging;
-using HttpStatusCode = CCL.Network.CCLHttpStatusCode;
+using MEI.Integration.PolyVideoOSRestAPI.Network;
+using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using HttpStatusCode = MEI.Integration.PolyVideoOSRestAPI.Network.CCLHttpStatusCode;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

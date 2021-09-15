@@ -6,11 +6,10 @@ using System.Text;
 // crestron libraries
 using Crestron.SimplSharp;
 
-using CCL;
-using CCL.Logging;
-using CCL.Network;
-using CCL.Network.REST;
-using CCL.Queue;
+using MEI.Integration.PolyVideoOSRestAPI.Logging;
+using MEI.Integration.PolyVideoOSRestAPI.Network;
+using MEI.Integration.PolyVideoOSRestAPI.Network.REST;
+using MEI.Integration.PolyVideoOSRestAPI.Queue;
 
 using MEI.Integration.PolyVideoOSRestAPI;
 using MEI.Integration.PolyVideoOSRestAPI.InputCommands;

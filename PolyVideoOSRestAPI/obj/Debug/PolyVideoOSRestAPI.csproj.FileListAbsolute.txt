@@ -20,3 +20,11 @@ C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplShar
 C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\ResolveAssemblyReference.cache
 C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\PolyVideoOSRestAPI.dll
 C:\MEI\Database\Simpl#\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\PolyVideoOSRestAPI.pdb
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\PolyVideoOSRestAPI.dll
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\PolyVideoOSRestAPI.pdb
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\Newtonsoft.Json.Compact.dll
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplSharpCustomAttributesInterface.dll
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\bin\Debug\SimplSharpHelperInterface.dll
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\PolyVideoOSRestAPI.dll
+C:\Users\andy\Documents\GitHub\PolyVideoOSRestAPI\PolyVideoOSRestAPI\obj\Debug\PolyVideoOSRestAPI.pdb
