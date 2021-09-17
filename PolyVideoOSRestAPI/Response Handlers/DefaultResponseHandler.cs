@@ -47,7 +47,7 @@ namespace PolyVideoOSRestAPI.ResponseHandlers
         {
             if (result == null)
             {
-                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : NULL web response", this.GetType().Name );
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : NULL web response", this.GetType().Name );
                 return;
             }           
 

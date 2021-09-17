@@ -54,7 +54,7 @@ namespace PolyVideoOSRestAPI.ResponseHandlers
         {
             if (response == null)
             {                
-                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : NULL web response", this.GetType().Name);
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : NULL web response", this.GetType().Name);
                 return;
             }            
 
@@ -63,7 +63,7 @@ namespace PolyVideoOSRestAPI.ResponseHandlers
                 // if OK response then 
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    Debug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : Received OK Response", this.GetType().Name);
+                    ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : Received OK Response", this.GetType().Name);
                     APISystemModeObject systemMode = JsonConvert.DeserializeObject<APISystemModeObject>(response.Content);
 
                     // send the event
@@ -73,19 +73,19 @@ namespace PolyVideoOSRestAPI.ResponseHandlers
                 }
                 else if ((response.StatusCode >= HttpStatusCode.BadRequest) && (response.StatusCode < HttpStatusCode.InternalServerError)) // client error that we are not handling is returned
                 {
-                    Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Received Unknown Response - Status = {1} Content = {2}", this.GetType().Name, response.StatusCode, response.Content);
+                    ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Received Unknown Response - Status = {1} Content = {2}", this.GetType().Name, response.StatusCode, response.Content);
                     base.HandleUnknownAPIResponse(response);
                 }
                 else if ((response.StatusCode >= HttpStatusCode.InternalServerError) && (response.StatusCode <= HttpStatusCode.HttpVersionNotSupported))
                 {
-                    Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Received Error Response - Status = {1} Content = {2}", this.GetType().Name, response.StatusCode, response.Content);
+                    ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Received Error Response - Status = {1} Content = {2}", this.GetType().Name, response.StatusCode, response.Content);
                     base.HandleErrorAPIResponse(response);
                 }
             }
             catch (Exception e)
             {
-                Debug.PrintExceptionToConsoelAndLog(eDebugLevel.Error, e, "{0}.HandleAPIResponse( ) - Error Processing Response");
-                Debug.PrintToConsoleAndLog(eDebugLevel.Error, response.ToString());
+                ProjectDebug.PrintExceptionToConsoelAndLog(eDebugLevel.Error, e, "{0}.HandleAPIResponse( ) - Error Processing Response");
+                ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Error, response.ToString());
             }
         }
 

@@ -96,7 +96,7 @@ namespace PolyVideoOSRestAPI.Network
             }
             catch (Exception ex)
             {
-                Debug.PrintExceptionToConsole(eDebugLevel.Error, ex, "NetworkHelperFunctions.ConvertToBase64Encoding(): Error Encoding String using encoding " + encodingName );
+                ProjectDebug.PrintExceptionToConsole(eDebugLevel.Error, ex, "NetworkHelperFunctions.ConvertToBase64Encoding(): Error Encoding String using encoding " + encodingName );
             }
 
             return base64EncodedString;
@@ -118,7 +118,7 @@ namespace PolyVideoOSRestAPI.Network
             }
             catch (Exception ex)
             {
-                Debug.PrintExceptionToConsole(eDebugLevel.Error, ex, "NetworkHelperFunctions.ConvertToBase64Encoding(): Error Encoding String using encoding " + codepage);
+                ProjectDebug.PrintExceptionToConsole(eDebugLevel.Error, ex, "NetworkHelperFunctions.ConvertToBase64Encoding(): Error Encoding String using encoding " + codepage);
             }
 
             return base64EncodedString;

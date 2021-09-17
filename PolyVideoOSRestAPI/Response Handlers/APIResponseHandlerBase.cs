@@ -67,7 +67,7 @@ namespace PolyVideoOSRestAPI.ResponseHandlers
         public virtual void HandleAPIResponse(WebResponse result)
         {
             if( result != null )
-                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.nVideoOSAPIResponseHandler() : Path = {1}, Result = {2}", this.GetType().Name, Path, result);
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.nVideoOSAPIResponseHandler() : Path = {1}, Result = {2}", this.GetType().Name, Path, result);
         }
 
         /// <summary>

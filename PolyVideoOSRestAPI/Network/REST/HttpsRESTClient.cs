@@ -92,7 +92,7 @@ namespace PolyVideoOSRestAPI.Network.REST
                 if (client.ProcessBusy)
                     client.Abort();
 
-                Debug.PrintToConsole(eDebugLevel.Trace,"{0}.SubmitRequest() - Sending REST Request {1}", this.GetType().Name, webRequest);
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace,"{0}.SubmitRequest() - Sending REST Request {1}", this.GetType().Name, webRequest);
 
                 // configure client
                 client.HostVerification = webRequest.HostVerification;

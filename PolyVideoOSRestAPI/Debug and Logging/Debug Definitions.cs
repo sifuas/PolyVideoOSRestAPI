@@ -39,11 +39,11 @@ namespace PolyVideoOSRestAPI.Logging
     /// <summary>
     /// Encapsulate logic for debugging
     /// </summary>
-    public static class Debug
+    public static class ProjectDebug
     {
         public static eDebugLevel DebugLevel { get; set; }
 
-        static Debug()
+        static ProjectDebug()
         {            
             DebugLevel = eDebugLevel.Error;
         }

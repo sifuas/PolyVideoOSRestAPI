@@ -92,7 +92,7 @@ namespace PolyVideoOSRestAPI.Timer
         /// </summary>
         public void Start()
         {
-            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Start(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            ProjectDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Start(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
             if (Disposed)
                 return;
@@ -108,7 +108,7 @@ namespace PolyVideoOSRestAPI.Timer
         /// </summary>
         public void StartExtended()
         {
-            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] StartExtended(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            ProjectDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] StartExtended(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
 
             if (Disposed)
@@ -127,7 +127,7 @@ namespace PolyVideoOSRestAPI.Timer
         /// <param name="timerRepeatPeriodInMs"></param>
         public void Reset(long timerPeriodInMs, long timerRepeatPeriodInMs)
         {
-            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Reset(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            ProjectDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Reset(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
             if (Disposed)
                 return;
@@ -145,7 +145,7 @@ namespace PolyVideoOSRestAPI.Timer
         /// <param name="timerExtendedRepeatPeriodInMs"></param>
         public void ResetExtended(long timerExtendedPeriodInMs, long timerExtendedRepeatPeriodInMs)
         {
-            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] ResetExtended(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            ProjectDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] ResetExtended(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
             if (Disposed)
                 return;
@@ -161,7 +161,7 @@ namespace PolyVideoOSRestAPI.Timer
         /// </summary>
         public void Stop()
         {
-            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Stop(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            ProjectDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Stop(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
             if (Disposed)
                 return;
@@ -176,7 +176,7 @@ namespace PolyVideoOSRestAPI.Timer
         /// </summary>
         public void Dispose()
         {
-            Debug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Dispose(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
+            ProjectDebug.PrintToConsole(eDebugLevel.Trace, "Timer [{0}] Dispose(): {1}, {2}, {3}, {4}", Name, TimerPeriodInMs, TimerPeriodInMs, TimerExtendedPeriodInMs, TimerExtendedRepeatPeriodInMs);
 
             Disposed = true;
 

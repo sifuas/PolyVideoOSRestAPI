@@ -61,7 +61,7 @@ namespace PolyVideoOSRestAPI.Queue
         {
             if (response == null || IsDisposed == true )
             {
-                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  Exiting ProcessQueueObject( ). IsDisposed = {4}", this.GetType().Name, Name, IsDisposed);
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  Exiting ProcessQueueObject( ). IsDisposed = {4}", this.GetType().Name, Name, IsDisposed);
                 return;
             }
 
@@ -87,8 +87,8 @@ namespace PolyVideoOSRestAPI.Queue
             }
             else
             {                
-                Debug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  Unhandled Response Received. Responsse = {2}", this.GetType().Name, Name, response);
-                Debug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  URL Path = {2}, Generic Path = {3}", this.GetType().Name, Name, urlPath, genericPath);
+                ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  Unhandled Response Received. Responsse = {2}", this.GetType().Name, Name, response);
+                ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  URL Path = {2}, Generic Path = {3}", this.GetType().Name, Name, urlPath, genericPath);
 
                 foreach (string key in responseHandlersCollection.Keys)
                 {

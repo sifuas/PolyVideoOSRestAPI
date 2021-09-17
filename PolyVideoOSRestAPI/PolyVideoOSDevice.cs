@@ -133,13 +133,13 @@ namespace PolyVideoOSRestAPI
                 if (debugState)
                 {
                     CrestronConsole.PrintLine("{0} - Debug Enabled", this.GetType().Name);
-                    Debug.SetDebugLevel(eDebugLevel.Trace);
+                    ProjectDebug.SetDebugLevel(eDebugLevel.Trace);
                     PrintDebugState();
                 }
                 else
                 {
                     CrestronConsole.PrintLine("{0} - Debug Disabled", this.GetType().Name);
-                    Debug.SetDebugLevel(eDebugLevel.Error);
+                    ProjectDebug.SetDebugLevel(eDebugLevel.Error);
                 }
             }
         }
@@ -217,7 +217,7 @@ namespace PolyVideoOSRestAPI
         /// <returns></returns>
         public ushort Connect()
         {
-            Debug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() : Started", this.GetType().Name);
+            ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() : Started", this.GetType().Name);
 
             if (String.IsNullOrEmpty(HostNameOrIPAddress))
                 throw new InvalidOperationException("No Host or IP Address Set");
@@ -241,12 +241,12 @@ namespace PolyVideoOSRestAPI
 
                 if (command != null)
                 {
-                    Debug.PrintToConsole(eDebugLevel.Trace, "Adding Command to Queue : {0}", command);
+                    ProjectDebug.PrintToConsole(eDebugLevel.Trace, "Adding Command to Queue : {0}", command);
                     sendCommandProcessingQueue.Enqueue(command);
                 }
                 else
                 {
-                    Debug.PrintToConsole(eDebugLevel.Warning, "{0}.Connect() : NULL Command retrieved from Queue", this.GetType().Name);
+                    ProjectDebug.PrintToConsole(eDebugLevel.Warning, "{0}.Connect() : NULL Command retrieved from Queue", this.GetType().Name);
                 }
 
                 loginTimer.Reset(1000, 10000); 
@@ -483,7 +483,7 @@ namespace PolyVideoOSRestAPI
             // too many failed login attempts and are locked out
             else if (eventArgs.State == eSessionState.LOCKED_OUT)
             {
-                Debug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Locked Out, too many login attempts to {1}. User = {2}", this.GetType().Name, apiSession.HostnameOrIPAddress, apiSession.Credentials.Username);
+                ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Locked Out, too many login attempts to {1}. User = {2}", this.GetType().Name, apiSession.HostnameOrIPAddress, apiSession.Credentials.Username);
 
                 // remove any old session cookie
                 if (apiSession.HTTPHeaders.ContainsKey("Cookie"))
@@ -502,7 +502,7 @@ namespace PolyVideoOSRestAPI
             }
             else if (eventArgs.State == eSessionState.INVALID_CREDENTIALS)
             {
-                Debug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Invalid Credentials for {1}. User = {2}", this.GetType().Name, apiSession.HostnameOrIPAddress, apiSession.Credentials.Username);
+                ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Invalid Credentials for {1}. User = {2}", this.GetType().Name, apiSession.HostnameOrIPAddress, apiSession.Credentials.Username);
 
                 apiSession.Connected = false;
                 apiSession.State = eSessionState.INVALID_CREDENTIALS;
@@ -510,7 +510,7 @@ namespace PolyVideoOSRestAPI
             }
             else if (eventArgs.State == eSessionState.LOGIN_ERROR) // otherwise assume that we need to login again
             {
-                Debug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Error Logging In to {1}", this.GetType().Name, apiSession.HostnameOrIPAddress);
+                ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.SessionStateChanged( ) : Error Logging In to {1}", this.GetType().Name, apiSession.HostnameOrIPAddress);
 
                 if (apiSession.ConnectionRequested == true)
                     loginTimer.Reset(120000, 120000); // StartExtended();
@@ -557,9 +557,9 @@ namespace PolyVideoOSRestAPI
                 string urlPath = NetworkHelperFunctions.GetURLPath(eventArgs.Response.ResponseURL);
                 string genericPath = APIGlobal.CreateFullRESTAPIPath("*");
 
-                Debug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.ResponserHandlerUnregisteredResponseReceived() :  URL Path = {2}, Generic Path = {3}", this.GetType().Name, urlPath, genericPath);
+                ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Error, "{0}.ResponserHandlerUnregisteredResponseReceived() :  URL Path = {2}, Generic Path = {3}", this.GetType().Name, urlPath, genericPath);
 
-                if (Debug.CheckDebugLevel(eDebugLevel.Trace))
+                if (ProjectDebug.CheckDebugLevel(eDebugLevel.Trace))
                 {
                     foreach (string key in responseHandlersCollection.Keys)
                     {
@@ -643,7 +643,7 @@ namespace PolyVideoOSRestAPI
             }
             else
             {
-                Debug.PrintExceptionToConsoelAndLog(eDebugLevel.Error, ex, "{0}.HandleCommandQueueProcessingException( )", this.GetType().Name);
+                ProjectDebug.PrintExceptionToConsoelAndLog(eDebugLevel.Error, ex, "{0}.HandleCommandQueueProcessingException( )", this.GetType().Name);
                 
             }
         }
@@ -730,7 +730,7 @@ namespace PolyVideoOSRestAPI
         {
             SetSessionState(eSessionState.LOGGING_IN, false);
 
-            Debug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.SessionReconnect( ) : Reconnecting to {1}", this.GetType().Name, apiSession.HostnameOrIPAddress);
+            ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Trace, "{0}.SessionReconnect( ) : Reconnecting to {1}", this.GetType().Name, apiSession.HostnameOrIPAddress);
 
             statusPollingTimer.Stop();
             sendCommandProcessingQueue.Clear();
@@ -854,7 +854,7 @@ namespace PolyVideoOSRestAPI
 
                 case eEthernetEventType.LinkDown:
                     // ethernet link went down, disconnect or do nothing?
-                    Debug.PrintToConsoleAndLog(eDebugLevel.Notice, "{0} - Ethernet Link Disconnected", this.GetType().Name);
+                    ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Notice, "{0} - Ethernet Link Disconnected", this.GetType().Name);
 
                     loginTimer.Stop();
                     statusPollingTimer.Stop();

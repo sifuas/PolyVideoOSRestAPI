@@ -73,14 +73,14 @@ namespace PolyVideoOSRestAPI.Queue
             if (command == null || IsDisposed == true)
             {
                 //CrestronConsole.PrintLine("{0}.ProcessQueueObject() [ {1} ] :  Exiting ProcessQueueObject( ). IsDisposed = {4}", this.GetType().Name, Name, IsDisposed);
-                Debug.PrintToConsole(eDebugLevel.Notice, "{0}.ProcessQueueObject() [ {1} ] :  Exiting ProcessQueueObject( ). IsDisposed = {4}", this.GetType().Name, Name, IsDisposed);
+                ProjectDebug.PrintToConsole(eDebugLevel.Notice, "{0}.ProcessQueueObject() [ {1} ] :  Exiting ProcessQueueObject( ). IsDisposed = {4}", this.GetType().Name, Name, IsDisposed);
                 return;
             }
 
             try
             {
-                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.ProcessQueueObject() - Sending Command", this.GetType().Name);
-                Debug.PrintToConsole(eDebugLevel.Trace, command.ToString());
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.ProcessQueueObject() - Sending Command", this.GetType().Name);
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, command.ToString());
 
                 // create the request
                 WebRequest request = new WebRequest(Session.HostnameOrIPAddress, command.APIPath, 0, command.CommandRequestType, RequestAuthType.Basic, null, null, command.CombineHeaders(Session.HTTPHeaders), command.GetFormattedCommandString(), command.TimeoutEnabled, command.Timeout, true, false, false, Encoding.UTF8);
@@ -88,7 +88,7 @@ namespace PolyVideoOSRestAPI.Queue
                 // send the request and get the response
                 WebResponse response = Session.Connection.SubmitRequest(request);
 
-                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] : Received Response - {2}", this.GetType().Name, Name, response);
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] : Received Response - {2}", this.GetType().Name, Name, response);
 
                 // add the response to the queue to be processed
                 if (command.ProcessResponse)
@@ -96,12 +96,12 @@ namespace PolyVideoOSRestAPI.Queue
                     if( OnResponseReceived != null && response != null )
                         OnResponseReceived(this, response);
                     else if( response == null )
-                        Debug.PrintToConsole(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  NULL Response returned from REST client for command {2}", this.GetType().Name, Name, command.Path);
+                        ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.ProcessQueueObject() [ {1} ] :  NULL Response returned from REST client for command {2}", this.GetType().Name, Name, command.Path);
                 }
             }
             catch (Crestron.SimplSharp.Net.Https.HttpsException httpsEx)
             {
-                Debug.PrintToConsole(eDebugLevel.Notice,"{0}.ProcessQueueObject() [ {1} ] :  Network Error Processing Queue", this.GetType().Name, Name);
+                ProjectDebug.PrintToConsole(eDebugLevel.Notice,"{0}.ProcessQueueObject() [ {1} ] :  Network Error Processing Queue", this.GetType().Name, Name);
 
                 if( OnQueueProcessingError != null )
                     CrestronInvoke.BeginInvoke(thread => OnQueueProcessingError(this,httpsEx));

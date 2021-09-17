@@ -53,7 +53,7 @@ namespace PolyVideoOSRestAPI.ResponseHandlers
         {
             if (response == null)
             {                
-                Debug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : NULL web response", this.GetType().Name);
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : NULL web response", this.GetType().Name);
                 return;
             }
            
@@ -76,7 +76,7 @@ namespace PolyVideoOSRestAPI.ResponseHandlers
                 {
                     if (String.IsNullOrEmpty(sessionState.Session.SessionID))
                     {
-                        Debug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : No Session ID Returned in response {1}", this.GetType().Name, content);
+                        ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.HandleAPIResponse() : No Session ID Returned in response {1}", this.GetType().Name, content);
                         return;
                     }
                     else
@@ -95,7 +95,7 @@ namespace PolyVideoOSRestAPI.ResponseHandlers
 
                     if (sessionState.Reason == null)
                     {
-                        Debug.PrintToConsole(eDebugLevel.Warning, "{0}.HandleAPIResponse() :  HTTP Response 400. No 'reason' field returned in VideoOS API JSON response", this.GetType().Name);
+                        ProjectDebug.PrintToConsole(eDebugLevel.Warning, "{0}.HandleAPIResponse() :  HTTP Response 400. No 'reason' field returned in VideoOS API JSON response", this.GetType().Name);
                         return;
                     }
 
@@ -107,31 +107,31 @@ namespace PolyVideoOSRestAPI.ResponseHandlers
                     // invalid credentials
                     else if (sessionState.Reason.Equals("SessionRequestInvalid"))
                     {
-                        Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Invalid Login Credentials", this.GetType().Name);
+                        ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Invalid Login Credentials", this.GetType().Name);
                         state = eSessionState.INVALID_CREDENTIALS;
                     }
                     // malformed request
                     else if (sessionState.Reason.Equals("SessionRequestInvalid"))
                     {
-                        Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Invalid Login Credentials", this.GetType().Name);
+                        ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Invalid Login Credentials", this.GetType().Name);
                         state = eSessionState.INVALID_CREDENTIALS;
                     }
                     // locked out from too many failed login attempts
                     else if (sessionState.Reason.Equals("SessionPortLockout"))
                     {
-                        Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Too many attempts, session locked out", this.GetType().Name);
+                        ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Too many attempts, session locked out", this.GetType().Name);
                         state = eSessionState.LOCKED_OUT;
                     }
                     // no valid session to connect to, logout to trigger re-login if needed
                     else if (sessionState.Reason.Equals("SessionNoActiveSession"))
                     {
-                        Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Already Logged Out", this.GetType().Name);
+                        ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Already Logged Out", this.GetType().Name);
                         state = eSessionState.LOGGED_OUT;
                     }
                     // unknown
                     else
                     {
-                        Debug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Unhandled Reason {1}", this.GetType().Name, sessionState.Reason);
+                        ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Warning, "{0}.HandleAPIResponse() : Unhandled Reason {1}", this.GetType().Name, sessionState.Reason);
                         state = eSessionState.LOGIN_ERROR;
                     }
 
@@ -148,8 +148,8 @@ namespace PolyVideoOSRestAPI.ResponseHandlers
             }
             catch (Exception e)
             {                
-                Debug.PrintExceptionToConsoelAndLog(eDebugLevel.Error,e, "{0}.HandleAPIResponse( ) - Error Processing Response");               
-                Debug.PrintToConsoleAndLog(eDebugLevel.Error, response.ToString());
+                ProjectDebug.PrintExceptionToConsoelAndLog(eDebugLevel.Error,e, "{0}.HandleAPIResponse( ) - Error Processing Response");               
+                ProjectDebug.PrintToConsoleAndLog(eDebugLevel.Error, response.ToString());
             }
         }
 
