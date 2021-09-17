@@ -1,7 +1,13 @@
-
 *.zip
 *.sm2
 *.smft
 *.ASV
-*.zip
-*.zip
+*.lpz
+*.hash
+*_archive.zip
+*_compiled.zip
+
+SPlsWork
+bin
+
+
