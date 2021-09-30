@@ -1,3 +1,7 @@
 *.smw binary
 *.umc binary
 
+*.sln text eol=crlf
+*.usp text eol=crlf
+
+
