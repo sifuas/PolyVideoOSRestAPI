@@ -3,5 +3,4 @@
 
 *.sln text eol=crlf
 *.usp text eol=crlf
-
-
+*.ush text eol=crlf
