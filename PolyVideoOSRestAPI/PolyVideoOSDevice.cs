@@ -46,7 +46,6 @@ namespace PolyVideoOSRestAPI
     /// </summary>
     public sealed class PolyVideoOSDevice : IDisposable, IDebuggable
     {
-
         // Simpl + delegates
         public event EventHandler<SessionStateChangedEventArgs> OnSessionStateChanged;
         public event EventHandler<UShortChangeEventArgs> OnDevideModeChanged;
@@ -98,10 +97,12 @@ namespace PolyVideoOSRestAPI
         {
             get
             {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Get.HostNameOrIPAddress", this.GetType().Name);
                 return ((apiSession != null) ? apiSession.HostnameOrIPAddress : "");
             }
             set
             {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Set.HostNameOrIPAddress", this.GetType().Name);
                 if (apiSession != null)
                     apiSession.HostnameOrIPAddress = value;
             }
@@ -109,17 +110,32 @@ namespace PolyVideoOSRestAPI
 
         public string Username
         {
-            get { return apiSession.Credentials.Username; }
+            
+            get 
+            {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Get.Username", this.GetType().Name);
+                return apiSession.Credentials.Username; 
+            }
             set
             {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Set.Username", this.GetType().Name);
                 apiSession.Credentials.Username = value;
             }
         }
 
         public string Password
         {
-            get { return apiSession.Credentials.Password; }
-            set { apiSession.Credentials.Password = value; }
+            get 
+            {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Get.Password", this.GetType().Name);
+                return ((apiSession != null) ? apiSession.Credentials.Password : ""); 
+            }
+            set 
+            {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Set.Password", this.GetType().Name);
+                if( apiSession != null )
+                    apiSession.Credentials.Password = value; 
+            }
         }
 
         private bool debugState;
@@ -149,7 +165,14 @@ namespace PolyVideoOSRestAPI
         /// </summary>
         public ushort Connected
         {
-            get { return (ushort)(apiSession.Connected ? 1 : 0); }
+            get 
+            {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Get.Connected", this.GetType().Name);
+                if (apiSession != null)
+                    return (ushort)(apiSession.Connected ? 1 : 0);
+                else
+                    return 0;
+            }
         }
 
         /// <summary>
@@ -160,6 +183,7 @@ namespace PolyVideoOSRestAPI
         {
             get
             {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Get.PollingTime", this.GetType().Name);
                 return _pollingTime;
             }
             set
@@ -217,23 +241,33 @@ namespace PolyVideoOSRestAPI
         /// <returns></returns>
         public ushort Connect()
         {
-            ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() : Started", this.GetType().Name);
+            ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() : Started to '{1}'", this.GetType().Name, HostNameOrIPAddress);
 
             if (String.IsNullOrEmpty(HostNameOrIPAddress))
+            {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() - Throwing Error : Invalid HostnameOrIPAddress", this.GetType().Name);
                 throw new InvalidOperationException("No Host or IP Address Set");
+            }
 
             if (!apiSession.AuthenticationIsValid())
+            {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() - Throwing Error : Invalid Authentication is not valid", this.GetType().Name);
                 throw new InvalidOperationException("Invalid Authentication data. Username or password are not set");
+            }
 
             try
             {
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() : Stopping Timers and Clearing Queues.", this.GetType().Name);
+
                 loginTimer.Stop();
                 statusPollingTimer.Stop();
-                sendCommandProcessingQueue.Clear();                    
+                sendCommandProcessingQueue.Clear();
 
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() : Setting Connection Requested on API Session", this.GetType().Name);
                 // set flag indicating that the system should be connected
                 apiSession.ConnectionRequested = true;
 
+                ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Connect() : Setting Session State to {1}", this.GetType().Name, eSessionState.LOGGING_IN.ToString());
                 SetSessionState(eSessionState.LOGGING_IN, apiSession.Connected);
 
                 // send the login session command
@@ -266,6 +300,7 @@ namespace PolyVideoOSRestAPI
         /// </summary>
         public ushort Disconnect()
         {
+            ProjectDebug.PrintToConsole(eDebugLevel.Trace, "{0}.Disconnect() - Invalid HostnameOrIPAddress", this.GetType().Name);
             apiSession.ConnectionRequested = false;
 
             loginTimer.Stop();
