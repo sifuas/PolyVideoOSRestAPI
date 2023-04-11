@@ -669,17 +669,23 @@ namespace PolyVideoOSRestAPI
         /// <param name="ex"></param>
         private void HandleCommandQueueProcessingException(object sender, Exception ex)
         {
-            UpdateErrorFeedback(true, ex.Message);
+            try
+            {
+                UpdateErrorFeedback(true, ex.Message);
 
-            // we should only receive an HTTPS exception which means we can't connect to the device and should try to login if we have already connected before
-            if (( apiSession.ConnectionRequested == true ) && (ex is HttpsException) )
-            {
-                SessionReconnect( );                
+                // we should only receive an HTTPS exception which means we can't connect to the device and should try to login if we have already connected before
+                if ((apiSession.ConnectionRequested == true) && (ex is HttpsException))
+                {
+                    SessionReconnect();
+                }
+                else
+                {
+                    ProjectDebug.PrintExceptionToConsoelAndLog(eDebugLevel.Error, ex, "{0}.HandleCommandQueueProcessingException( )", this.GetType().Name);
+                }
             }
-            else
+            catch (Exception e)
             {
-                ProjectDebug.PrintExceptionToConsoelAndLog(eDebugLevel.Error, ex, "{0}.HandleCommandQueueProcessingException( )", this.GetType().Name);
-                
+                CrestronConsole.PrintLine("PolyVideoOSDevice().HandleCommandQueueProcessingException() - Error handling connection {0} - {1}", e.Message, e.StackTrace);
             }
         }
 

@@ -160,16 +160,24 @@ namespace PolyVideoOSRestAPI.Logging
         /// <param name="msg"></param>
         public static void PrintExceptionToConsole(eDebugLevel level, Exception e, string msg)
         {
-            if (CheckDebugLevel(level))
+            try
             {
-                if( msg != null )
-                    CrestronConsole.PrintLine(msg);
 
-                CrestronConsole.PrintLine("Exception ( {0} ) : {1}", e.GetType().ToString(), e.Message);
-                CrestronConsole.PrintLine("Stacktrace : " + e.StackTrace);
+                if (CheckDebugLevel(level))
+                {
+                    if (msg != null)
+                        CrestronConsole.PrintLine(msg);
 
-                if (e.InnerException != null)
-                    CrestronConsole.PrintLine("Inner Exception : " + e.InnerException);
+                    CrestronConsole.PrintLine("Exception ( {0} ) : {1}", e.GetType().ToString(), e.Message);
+                    CrestronConsole.PrintLine("Stacktrace : " + e.StackTrace);
+
+                    if (e.InnerException != null)
+                        CrestronConsole.PrintLine("Inner Exception : " + e.InnerException);
+                }
+            }
+            catch (Exception ex)
+            {
+                CrestronConsole.PrintLine("ProjectDebug.PrintExceptionToConsole() - Error handling error {0} - {1}", ex.Message, ex.StackTrace);
             }
         }
 

@@ -1,5 +1,7 @@
-﻿MainAssembly=PolyVideoOSRestAPI.dll:6ab91c9f0df71ea797a42377d8220081
+﻿MainAssembly=PolyVideoOSRestAPI.dll:b2df202c932bc623f85875ea8dca3b4a
 MainAssemblyMinFirmwareVersion=1.007.0017
+MainAssemblyResource=SimplSharpData.dat:820b61c48c8a2cace82957eed4cc377c
+MainAssemblyResource=SimplSharpData.dat.der:bf862965c00f3e6ec535e4e00e82d30c
 MainAssemblyResource=SimplSharpData.dat:820b61c48c8a2cace82957eed4cc377c
 MainAssemblyResource=SimplSharpData.dat.der:bf862965c00f3e6ec535e4e00e82d30c
 ü
